@@ -55,3 +55,11 @@ VALUES
     (3, 3),
     (4, 4),
     (5, 5);
+
+
+----
+SELECT pg_get_serial_sequence('bibliotecajwt.libro', 'id_libro');
+SELECT last_value FROM bibliotecajwt.libro_id_libro_seq;  -- Asegúrate de usar el nombre correcto de la secuencia
+
+--Reiniciar secuencia
+SELECT setval('bibliotecajwt.libro_id_libro_seq', (SELECT MAX(id_libro) FROM bibliotecajwt.libro));
