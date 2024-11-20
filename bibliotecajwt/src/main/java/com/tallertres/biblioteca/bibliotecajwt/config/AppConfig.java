@@ -23,7 +23,7 @@ public class AppConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("jccastillo")
                         .password(new BCryptPasswordEncoder().encode("12345"))
-                        .authorities(new SimpleGrantedAuthority("ADMIN"))
+                        .authorities(new SimpleGrantedAuthority("ROLE_ADMIN"))
                         .build()
         );
     }
