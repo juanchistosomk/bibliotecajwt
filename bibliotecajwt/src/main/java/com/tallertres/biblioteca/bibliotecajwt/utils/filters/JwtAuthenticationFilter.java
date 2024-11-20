@@ -1,10 +1,12 @@
 package com.tallertres.biblioteca.bibliotecajwt.utils.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tallertres.biblioteca.bibliotecajwt.presentation.dto.UserDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 
@@ -31,13 +33,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         ObjectMapper mapper = new ObjectMapper();
-        User user = null;
+        UserDTO user = null;
         String username = "";
         String password = "";
         try{
-            user = mapper.readValue(request.getInputStream(), User.class);
+            user = mapper.readValue(request.getInputStream(), UserDTO.class);
             username = user.getUsername();
             password = user.getPassword();
+            log.info("USER: {}", user);
         }catch (Exception e){
             e.printStackTrace();
         }
